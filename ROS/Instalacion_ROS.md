@@ -36,4 +36,18 @@ Cada una con su plataforma correspondiente.
  >apt search ros-noetic
 
 También debe obtener el script en cada terminar bash de que ROS está.
+
 >source /opt/ros/noetic/setup.bash
+
+Dependecias para paquetes.
+
+>sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+
+Inicialización de rosdep
+
+>sudo apt install python3-rosdep
+
+>sudo rosdep init
+
+>rosdep update
+
