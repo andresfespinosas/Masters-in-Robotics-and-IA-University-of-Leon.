@@ -103,13 +103,22 @@ Podemos también comprobar los nodos, de la siguiente manera. Comprobando que es
 
 Se descarga los ejemplos en este caso del link asociado y se va a la carpeta correspondiente.
 
->cd basic_ros/
+Una vez descargado, se debe hacer un catkin_make dentro de la carpeta src/. (Dentro de la carpeta src/, se debe añadir todos las carpetaas descargadas)
 
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/1d797451-1190-4082-9707-4c30590ec029)
+
+Se ejecuta el launch predefinido. (roslaunch)
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/007970f9-d0b6-4c02-989b-8700ef81a6b3)
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/e1ffe872-e1c4-4a59-85cc-e2978f3cb477)
 
 
 5. Compilar con catkin make y compilar con catkin build [1].
 
+Para poder compilar con caktin build, se recomienda seguir el siguiente link:
 
+>https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_build.html
 
 7. Revisar y comparar el espacio de trabajo en cada caso.
 
