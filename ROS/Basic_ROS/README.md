@@ -122,15 +122,166 @@ Para poder compilar con caktin build, se recomienda seguir el siguiente link:
 
 7. Revisar y comparar el espacio de trabajo en cada caso.
 
+Sólo quiero añadir que cree está carpeta pero con en la carpeta catkin_ws, me sale un error diciendo que como ya compile con el comando catkin_make, debe ser que al seleccionar sólo una al momento de crear un carpeta.
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/3be26d3a-994f-420e-8906-b72ff12b5dcf)
+
 
 9. Entender las diferencias entre las carpetas source, install, devel, build, y result.
 
+source:
+
+Propósito: En términos sencillos, podríamos comparar la carpeta 'source' con el taller de un artista. Aquí es donde reside la esencia creativa del paquete, ya que almacena el código fuente, scripts de compilación y archivos de configuración. Es el espacio donde los desarrolladores dan forma y modifican sus creaciones.
+
+Contenido: Esta carpeta alberga los archivos que conforman el ADN del paquete: el código fuente que los desarrolladores crean y manipulan para construir su aplicación. Además, incluye scripts de compilación que son esenciales para transformar este código en una forma ejecutable, junto con archivos de configuración que ajustan el comportamiento del sistema.
+
+Notas adicionales: Es el corazón del proceso de desarrollo, donde los programadores dan rienda suelta a su creatividad, escribiendo y modificando código para construir la base de su aplicación.
+
+install:
+
+Propósito: Después de que los artistas han terminado de trabajar en su taller (carpeta 'source'), es hora de mostrar su obra al mundo. 'Install' es como la galería de arte donde se exhiben las creaciones, pero en el mundo de la programación. Aquí es donde se copian los resultados finales después de compilar el código fuente.
+
+Contenido: En 'install' se encuentran los ejecutables, bibliotecas y archivos de configuración que constituyen la versión ejecutable del paquete. Es como el catálogo de una exposición, mostrando los elementos finales listos para su uso.
+
+Notas adicionales: Esta carpeta se utiliza comúnmente para crear un entorno de ejecución separado del entorno de desarrollo. Es el espacio donde el paquete cobra vida y se ejecuta de manera independiente.
+
+devel:
+
+Propósito: Similar a 'install', pero más como el backstage de un espectáculo. La carpeta 'devel' contiene los elementos necesarios durante el desarrollo mismo. Aquí se encuentran los archivos compilados y otros recursos que permiten ejecutar el código directamente desde el espacio de desarrollo, evitando la necesidad de instalar el paquete.
+
+Contenido: Ejecutables, bibliotecas y archivos de configuración también residen en 'devel', pero son utilizados específicamente para facilitar la depuración y la ejecución de código que aún no ha sido instalado.
+
+Notas adicionales: Esta carpeta es como el estudio del artista donde las ideas están en constante evolución. Facilita el proceso creativo al proporcionar un entorno dinámico para el desarrollo y las pruebas.
+
+build:
+
+Propósito: Imagina 'build' como el taller temporal que se monta para fabricar las piezas de una obra de arte. Esta carpeta contiene los archivos generados durante el proceso de compilación, como objetos intermedios y archivos de configuración temporales.
+
+Contenido: Archivos temporales y generados durante la construcción del paquete. Estos son elementos necesarios para el proceso de compilación, pero no son parte del producto final.
+
+Notas adicionales: Después de una exitosa compilación, esta carpeta puede ser eliminada para mantener limpio el espacio en disco, ya que su contenido temporal ya ha cumplido su propósito.
+
+result:
+
+Propósito: En este caso, 'result' es como el archivo de críticas y reseñas después de una exposición de arte. Contiene los resultados específicos del paquete después de su ejecución, como archivos de registro, resultados de pruebas y otras salidas específicas.
+
+Contenido: Archivos que documentan y detallan los resultados y el rendimiento del paquete después de haber sido ejecutado.
+
+Notas adicionales: A diferencia de las carpetas anteriores, 'result' no es estándar en todos los paquetes y su presencia y contenido pueden variar según la configuración y los requisitos específicos del paquete. Es como el informe crítico después de una actuación, proporcionando información valiosa sobre el desempeño del paquete.
 
 11. Modificar el ejemplo de publish subscribe que has generado para que se produzcan esperas en la gestion de 
 los callbacks.
 
+Se basa en el ejemplo del siguiente canal de Youtube.
+
+>https://www.youtube.com/watch?v=_lmtdNaHDZA&list=PLCnFMDeQwi_qu2DfKmpG5ddKtbdKdfMCw&index=7&ab_channel=RodolfoCuan
+
+Para ello lo primero es crear una carpeta donde se almacenara un publisher y susbriber, para eso se recomienda en la carpeta src/, crear dicha carpeta.
+
+> cd catkin_ws/src/
+
+>catkin_create_pkg ejemplos roscpp rospy std_msgs
+
+>mkdir pub_sub
+
+>touch topic_publisher.py
+
+Luego para modicar ese py, se hace el siguiente comando.
+
+>gedit topic_publisher.py
+
+La cual abrira en este caso el editor de texto y se copia lo siguiente.
+
+#!/usr/bin/env python
+
+import rospy
+
+from std_msgs.msg import Int32
+
+rospy.init_node('publisher_node')
+
+pub = rospy.Publisher('counter', Int32, queue_size=1)
+
+rate=rospy.Rate(15) #Hz del mensaje
+
+count=0
+
+while not rospy.is_shutdown():
+   pub.publish(count)
+   count += 1
+   rate.sleep()  #Dilay para la frecuencia que indicamos.
+
+Luego necesitamos que el archivo sea ejecutable, para ello se hace el sigbuiente comando.
+
+>sudo chmod u+x topic_publisher.py 
+
+Luego hacer un source, en la carpeta de catkin_ws.
+
+>source devel/setup.bash
+
+Se corre un roscore, para ver si el nodo sirve. 
+
+>roscore
+
+En otra terminal ejecutamos lo siguiente.
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/19cd1d44-bac6-4aa9-8c71-571144fed8dd)
+
+Ahora falta crear el nodo suscriptor.
+
+Para ello se implementa los mismo hasta el touch, pero ya no es necesario más carpeta, en la creada se puede hacer el mismo ejemplo.
+
+>touch topic_subscriber.py
+
+>gedit topic_suscriner.py
+
+#!/usr/bin/env python
+
+import rospy
+from std_msgs.msg import Int32  # Corregir la importación de Int32
+
+def callback(msg):
+    rospy.sleep(10)  # Esperar 10 segundos antes de imprimir el mensaje
+    print(msg.data)
+
+rospy.init_node("subscriber_node")  # Corregir el nombre del nodo
+sub = rospy.Subscriber("counter", Int32, callback)  # Corregir el tipo de mensaje
+
+rospy.spin()  # Agregar esto para mantener el programa en ejecución
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/30edae16-c6cb-461d-9dfd-2f5ba458058d)
+
 
 13. Modificar los nodos para que en las mismas circunstancias funcione.
 
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/906c8fa3-24a7-4507-860a-af86e9911d59)
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/14c3f773-3730-4dd1-b020-d418674e7880)
 
 15. Revisar el funcionamiento de ROSlint y entender como se despliega y ejecuta.
+
+ROSlint es una herramienta de análisis estático para linting de código en el contexto de ROS (Robot Operating System). Se utiliza para verificar y mejorar la calidad del código fuente en paquetes ROS, aplicando reglas y estándares de estilo específicos para C++ y Python.
+
+Dependencia de Compilación:
+
+Se agrega una dependencia de compilación en el archivo package.xml del paquete ROS
+
+> <build_depend>roslint</build_depend
+
+Configuración en CMakeLists.txt:
+
+En el archivo CMakeLists.txt, se incluye ROSlint como una de las dependencias de catkin:
+
+>find_package(catkin REQUIRED COMPONENTS roslint ...)
+
+Invocación de ROSlint en CMakeLists.txt:
+
+Se invoca la función ROSlint desde el archivo CMakeLists.txt:
+
+>roslint_cpp()
+
+Ejecución de ROSlint:
+
+Para ejecutar ROSlint en el paquete, se utiliza catkin_make con el objetivo roslint del paquete:
+
+>catkin_make roslint_my_fancy_package
