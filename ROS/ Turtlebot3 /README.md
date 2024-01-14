@@ -67,11 +67,38 @@ En este caso se ejecuta de la siguiente manera.
 
 ![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/786d357d-a309-40bc-8444-ef1b4e3dc40a)
 
-
+Lo único es empezar a mapear todo el mapa, para ello se recomuienda ir con el roboto a los sitios que se desee.
 
 3. Generar un mapa con gmapping en el simulador del mundo .
 
 $ roslaunch turtlebot3 gazebo turtlebot3 world.launch
 
+Para esto se ejecuta el siguiente comando, considerando el turtlebot que tienes ejecutado en comando.
+
+>export TURTLEBOT3_MODEL=burger
+
+>roslaunch turtlebot3_slam turtlebot3_slam.launch
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/ec79c5f1-4a86-4f37-9bd5-2509c6624564)
 
 4. Dibujar el arbol de transformadas y explicar su estado.
+
+Lo priemro es hacer un install de las trasnformadas.
+
+>sudo apt install ros-noetic-tf2-tools
+
+Una vez instalada, se ejeucta el código correspondiente.
+
+>rosrun tf2_tools view_frames.py
+
+Esto genera un pdf, para ello se vusca en el directorio. (Es una manera o hacer echo a este)
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/59aae903-6a63-47a4-a90f-e58c8772ee0b)
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/84546c9f-11b7-4f84-8d4e-786a8c4ae1fa)
+
+Luego se examina.
+
+![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/c922888d-169c-47fc-a3e2-4ab310b2120f)
+
+Entonces el explica, primero donde se encuentra, que sería el map, luego el odom  que es el encargado de ubicarse donde se encuentra dentro de mapa para ello luego sigue el base link, que es la forma física del robot, en este cago es un burguer, a parte de la base link que sería como esta constituido dicho robot, que sus siguientes compoenentes o elementos, tales como ruedas o sus sensores.
