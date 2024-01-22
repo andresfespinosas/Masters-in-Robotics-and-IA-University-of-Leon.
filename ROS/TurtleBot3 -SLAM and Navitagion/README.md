@@ -1,4 +1,4 @@
-![image](https://github.com/andresfespinosas/Masters-in-Robotics-and-IA-University-of-Leon./assets/128443182/44073dc1-5a70-44c7-8e33-5045169a14c1)1. Generar un mapa con karto en el simulador con el mundo House de Gazebo.
+1. Generar un mapa con karto en el simulador con el mundo House de Gazebo.
 
 $ roslaunch turtlebot3 gazebo turtlebot3 house.launch
 
